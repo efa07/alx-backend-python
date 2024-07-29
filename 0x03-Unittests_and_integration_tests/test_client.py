@@ -61,18 +61,18 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch('github_client.get_json', return_value={"key": "value"})
     def test_org(self, org_name, mock_get_json):
-        """
-        Tests that GithubOrgClient.org returns the correct value.
-
-        Args:
-            org_name (str): The name of the GitHub organization.
-            mock_get_json (Mock): The mocked get_json function.
-        """
         client = GithubOrgClient(org_name)
         result = client.org()
         mock_get_json.assert_called_once_with
         (f'https://api.github.com/orgs/{org_name}')
         self.assertEqual(result, {"key": "value"})
+
+    @patch.object(GithubOrgClient, 'org', return_value={"repos_url": "https://api.github.com/orgs/google/repos"})
+    def test_public_repos_url(self, mock_org):
+        client = GithubOrgClient("google")
+        result = client._public_repos_url
+        self.assertEqual(result, "https://api.github.com/orgs/google/repos")
+        mock_org.assert_called_once()
 
 
 if __name__ == '__main__':
