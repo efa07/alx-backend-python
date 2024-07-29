@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This script contains a client for fetching data from the GitHub API and unit tests for the client.
+This script contains a client for fetching data from the GitHub API
+and unit tests for the client.
 The client is designed to fetch organization details using the GitHub API.
 
 Functions:
@@ -49,6 +50,7 @@ class GithubOrgClient:
         """
         return get_json(f'https://api.github.com/orgs/{self.org_name}')
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """
     Unit tests for the GithubOrgClient class.
@@ -68,8 +70,10 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         client = GithubOrgClient(org_name)
         result = client.org()
-        mock_get_json.assert_called_once_with(f'https://api.github.com/orgs/{org_name}')
+        mock_get_json.assert_called_once_with
+        (f'https://api.github.com/orgs/{org_name}')
         self.assertEqual(result, {"key": "value"})
+
 
 if __name__ == '__main__':
     unittest.main()
